@@ -1,5 +1,5 @@
-#ifndef _CUTE_SYS_BOOT_H_
-#define _CUTE_SYS_BOOT_H_
+#ifndef __CUTE_SYS_BOOT_H__
+#define __CUTE_SYS_BOOT_H__
 
 
 struct multiboot_device
@@ -112,4 +112,4 @@ struct multiboot_information
 
 
 
-#endif //_CUTE_SYS_BOOT_H_
+#endif //__CUTE_SYS_BOOT_H__
