@@ -7,12 +7,17 @@ LDFLAGS += -m elf_i386 -nostdlib
 ASM_SRC = \
 	src/asm/gdt.s \
 	src/asm/idt.s \
+	src/asm/isr.s \
+	src/asm/irq.s \
 
 SYS_SRC = \
 	src/sys/boot.c \
 	src/sys/init.c \
 	src/sys/gdt.c \
 	src/sys/idt.c \
+	src/sys/isr.c \
+	src/sys/irq.c \
+	src/sys/io.c \
 
 LIB_SRC = \
     src/lib/string.c \

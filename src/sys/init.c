@@ -4,4 +4,5 @@
 void sys_init()
 {
 
+	for(;;);
 }

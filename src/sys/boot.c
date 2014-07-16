@@ -8,8 +8,8 @@ void boot()
 	gdt_init();
 	idt_init();
 
-	//isr_init();
-	//irq_init();
+	isr_init();
+	irq_init();
 
 	sys_init();
 }

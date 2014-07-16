@@ -5,13 +5,6 @@
 #define true  1
 #define false 0
 
-#ifndef TRUE
-#define TRUE 1
-#endif
-#ifndef FALSE
-#define FALSE 0
-#endif
-
 #undef  NULL
 #if defined(__cplusplus)
 #define NULL 0
@@ -19,28 +12,18 @@
 #define NULL ((void *)0)
 #endif
 
-typedef unsigned char   u8_t;
-typedef signed   char   s8_t;
-typedef unsigned short  u16_t;
-typedef signed   short  s16_t;
-typedef unsigned long   u32_t;
-typedef signed   long   s32_t;
-
-typedef int* stk_t;
-typedef int err_t;
-typedef int cpu_sr_t;
 typedef int tid_t;
 typedef int size_t;
-typedef unsigned long	ulong;
-typedef unsigned short	ushort;
-typedef unsigned char	uchar;
-typedef unsigned int	uint;
 
-typedef enum {
-	VAR_LONG = 32,
-	VAR_SHORT = 16,
-	VAR_CHAR = 8
-} VAR_TYPE;
+/*  This defines what the stack looks like after an ISR was running */
+struct regs
+{
+	unsigned int gs, fs, es, ds;
+	unsigned int edi, esi, ebp, esp, ebx, edx, ecx, eax;
+	unsigned int int_no, err_code;
+	unsigned int eip, cs, eflags, useresp, ss;    
+};
+
 
 typedef char *va_list;
 #define va_start(ap, p)		(ap = (char *) (&(p)+1))
