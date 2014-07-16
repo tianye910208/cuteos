@@ -109,7 +109,4 @@ struct multiboot_information
 } __attribute__((packed));
 
 
-
-
-
 #endif //__CUTE_SYS_BOOT_H__

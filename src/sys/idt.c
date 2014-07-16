@@ -1,3 +1,4 @@
+#include "sys/init.h"
 
 struct idt_entry
 {
@@ -19,6 +20,19 @@ struct idt_ptr   idt_pointer;
 
 extern void idt_load(); //Defined in idt.s
 
+void idt_init()
+{
+    //Setup the IDT pointer and limit
+	idt_pointer.limit = (sizeof (struct idt_entry) * 256) - 1;
+	idt_pointer.base  = (unsigned int)&idt_table;
+
+    //Clear IDT
+	memset(&idt_table, 0, sizeof(struct idt_entry) * 256);
+
+    //Points the processor's internal register to the new IDT
+	idt_load();
+}
+
 void idt_set(unsigned char num, unsigned long base, unsigned short selector, unsigned char flags)
 {
     //Set base address
@@ -32,15 +46,6 @@ void idt_set(unsigned char num, unsigned long base, unsigned short selector, uns
 }
 
 
-void idt_init()
-{
-    //Setup the IDT pointer and limit
-	idt_pointer.limit = (sizeof (struct idt_entry) * 256) - 1;
-	idt_pointer.base  = (unsigned int)&idt_table;
 
-    //Clear IDT
-	memset(&idt_table, 0, sizeof(struct idt_entry) * 256);
 
-    //Points the processor's internal register to the new IDT
-	idt_load();
-}
+

@@ -1,5 +1,6 @@
 #include "sys/types.h"
 #include "sys/init.h"
+#include "drv/screen.h"
 
 //ISR handlers
 extern void isr0();
@@ -121,8 +122,8 @@ void isr_handler(struct regs* r)
 {
 	//Check that this is a fault
 	if (r->int_no < 32) {
-        //console_puts(exception_messages[r->int_no]);
-        //console_puts(" Exception. System Halted!\n");
+        screen_puts(exception_messages[r->int_no]);
+        screen_puts("Exception. System Halted!\n");
         for (;;);
 
 	}

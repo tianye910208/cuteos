@@ -28,21 +28,20 @@ void* irq_routines[16] =
 };
 
 
-void irq_set_handler(int irq, void (*handler)(struct regs* r))
+void irq_add_handler(int irq, void (*handler)(struct regs* r))
 {
 	irq_routines[irq] = handler;
 }
 
 
-void irq_unset_handler(int irq)
+void irq_del_handler(int irq)
 {
 	irq_routines[irq] = 0;
 }
 
-
-void irq_remap(void)
+void irq_init()
 {
-	//Tell PIC to remap IRQs
+	//Remap IRQs, Tell PIC to remap IRQs
 	iowrite8(0x20, 0x11);
 	iowrite8(0xA0, 0x11);
 	iowrite8(0x21, 0x20);
@@ -53,13 +52,6 @@ void irq_remap(void)
 	iowrite8(0xA1, 0x01);
 	iowrite8(0x21, 0x0);
 	iowrite8(0xA1, 0x0);
-}
-
-
-void irq_init()
-{
-	//Remap IRQs
-	irq_remap();
 
 	//Add IRQs into IDT
 	idt_set(32, (unsigned)irq0, 0x08, 0x8E);

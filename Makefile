@@ -18,6 +18,10 @@ SYS_SRC = \
 	src/sys/isr.c \
 	src/sys/irq.c \
 	src/sys/io.c \
+	src/sys/timer.c \
+
+DRV_SRC = \
+	src/drv/screen.c \
 
 LIB_SRC = \
     src/lib/string.c \
@@ -26,8 +30,9 @@ APP_SRC = \
 
 
 OBJS = \
-	 $(ASM_SRC:%.s=obj/%.o) \
 	 $(SYS_SRC:%.c=obj/%.o) \
+	 $(ASM_SRC:%.s=obj/%.o) \
+	 $(DRV_SRC:%.c=obj/%.o) \
 	 $(LIB_SRC:%.c=obj/%.o) \
 	 $(APP_SRC:%.c=obj/%.o) \
 

@@ -1,5 +1,5 @@
-#ifndef __CUTE_TYPES_H__
-#define __CUTE_TYPES_H__
+#ifndef __CUTE_SYS_TYPES_H__
+#define __CUTE_SYS_TYPES_H__
 
 #define bool  _Bool
 #define true  1
@@ -11,6 +11,8 @@
 #else
 #define NULL ((void *)0)
 #endif
+
+
 
 typedef int tid_t;
 typedef int size_t;
@@ -37,4 +39,4 @@ typedef char *va_list;
 #define offsetof(TYPE, MEMBER) ((size_t) &((TYPE *)0)->MEMBER)
 #endif
 
-#endif
+#endif //__CUTE_SYS_TYPES_H__
