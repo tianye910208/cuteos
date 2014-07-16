@@ -160,6 +160,8 @@ irq15:
 
 
 extern irq_handler
+extern task_switch
+extern curr_task_sp
 
 irq_common_stub:
 	pusha
@@ -174,17 +176,16 @@ irq_common_stub:
 	mov fs, ax
 	mov gs, ax
 
+
+	mov eax, curr_task_sp
+	mov [eax], esp
+
 	mov eax, esp
 	push eax
 
 	call irq_handler
 
 	pop eax
-	pop gs
-	pop fs
-	pop es
-	pop ds
-	popa
 
-	add esp, 8
-	iret
+	call task_switch
+

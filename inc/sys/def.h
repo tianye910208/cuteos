@@ -1,5 +1,5 @@
-#ifndef __CUTE_SYS_TYPES_H__
-#define __CUTE_SYS_TYPES_H__
+#ifndef __CUTE_SYS_DEF_H__
+#define __CUTE_SYS_DEF_H__
 
 #define bool  _Bool
 #define true  1
@@ -12,10 +12,6 @@
 #define NULL ((void *)0)
 #endif
 
-
-
-typedef int tid_t;
-typedef int size_t;
 
 /*  This defines what the stack looks like after an ISR was running */
 struct regs
@@ -36,7 +32,26 @@ typedef char *va_list;
 #ifdef __compiler_offsetof
 #define offsetof(TYPE,MEMBER) __compiler_offsetof(TYPE,MEMBER)
 #else
-#define offsetof(TYPE, MEMBER) ((size_t) &((TYPE *)0)->MEMBER)
+#define offsetof(TYPE, MEMBER) ((int) &((TYPE *)0)->MEMBER)
 #endif
 
-#endif //__CUTE_SYS_TYPES_H__
+
+
+static inline void disable_int()
+{
+	__asm__  __volatile__ ("cli");
+}
+
+static inline void enable_int()
+{
+	__asm__  __volatile__ ("sti");
+}
+
+static inline void wait()
+{
+	__asm__ __volatile ("sti;hlt");
+}
+
+#endif //__CUTE_SYS_DEF_H__
+
+
