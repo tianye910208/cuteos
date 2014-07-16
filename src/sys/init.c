@@ -11,7 +11,7 @@ void sys_init()
 
 	for(;;)
 	{
-		timer_sleep(10);
+		timer_sleep(1);
 		screen_puts("*");
 	}
 }

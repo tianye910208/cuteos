@@ -1,6 +1,7 @@
 #include "sys/types.h"
 #include "sys/init.h"
 #include "sys/io.h"
+#include "drv/screen.h"
 
 //IRQ handlers
 extern void irq0();
@@ -78,6 +79,7 @@ void irq_handler(struct regs* r)
 	//Handler pointer
 	void (*handler)(struct regs* r);
 
+	screen_puts("=");
 	//Find handler and call it
 	handler = irq_routines[r->int_no - 32];
 	if (handler)

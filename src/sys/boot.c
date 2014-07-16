@@ -20,6 +20,12 @@ void boot()
 	screen_puts("irq init...\n");
 	irq_init();
 
+	//Test panic
+	//volatile int a = 1;
+	//volatile int b = 0;
+	//volatile int c = a/b;
+
+
 	screen_puts("sys init...\n");
 	sys_init();
 }

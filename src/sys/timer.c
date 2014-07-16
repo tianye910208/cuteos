@@ -23,7 +23,8 @@ unsigned int timer_ticks()
 
 void timer_sleep(int ticks)
 {
-    unsigned long eticks = _g_timer_ticks + ticks;
+    unsigned long eticks;
+	eticks = _g_timer_ticks + ticks;
     while(_g_timer_ticks < eticks) ;
 }
 
