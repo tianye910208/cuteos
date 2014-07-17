@@ -14,11 +14,15 @@ struct task tasks[MAX_TASKS];
 
 void task_init()
 {
+	tasks[0].tid = 0;
+	strcpy(tasks[0].tname, "init");
+
 	int i;
-	for (i=0; i<MAX_TASKS; i++) {
+	for (i = 1; i < MAX_TASKS; i++) {
 		tasks[i].tid = -1;
 		tasks[i].state = TASK_TERMINATE;
 	}
+
 }
 
 int task_create(void* stack, char* name, void (*func)(void), int level)
@@ -101,12 +105,10 @@ int task_pick_RR()
 		next++;
 	} while (tasks[next].tid < 0 && next < MAX_TASKS);
 
-	if(next >= MAX_TASKS)
-		next = 0;
-	else if(next < 0)
-		next = 0;
-
-	return next;
+	if(next < MAX_TASKS)
+		return next;
+	else
+		return 0;
 }
 
 /**
