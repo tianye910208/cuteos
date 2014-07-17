@@ -2,7 +2,6 @@
 #define __CUTE_SYS_TASK_H__
 
 #define MAX_TASKS 64
-#define current (&tasks[curr_task_tid])
 
 typedef enum {
 	TASK_INIT,

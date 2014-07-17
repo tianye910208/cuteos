@@ -9,7 +9,6 @@ ASM_SRC = \
 	src/asm/idt.s \
 	src/asm/isr.s \
 	src/asm/irq.s \
-	src/asm/task.s \
 
 SYS_SRC = \
 	src/sys/boot.c \

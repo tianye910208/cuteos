@@ -23,7 +23,11 @@ void sys_init()
 	task_create(stackb + 1024 - 1, "taskb", taskb, 0);
 
 	while(true)
-		wait();
+	{
+		timer_sleep(800);
+		screen_puts("O");
+		//wait();
+	}
 }
 
 void taska()

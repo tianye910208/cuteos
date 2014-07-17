@@ -27,6 +27,7 @@ void timer_init()
 void timer_func(struct regs *r)
 {
     _g_timer_ticks++;
+	task_switch();
 }
 
 unsigned int timer_ticks()

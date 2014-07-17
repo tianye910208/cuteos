@@ -176,16 +176,34 @@ irq_common_stub:
 	mov fs, ax
 	mov gs, ax
 
-
-	mov eax, curr_task_sp
-	mov [eax], esp
+	mov [curr_task_sp], esp
 
 	mov eax, esp
 	push eax
+
 
 	call irq_handler
 
 	pop eax
 
-	call task_switch
+	mov esp, [curr_task_sp]
 
+	pop gs
+	pop fs
+	pop es
+	pop ds
+
+	mov ax, [esp + 32]
+	cmp ax, 0xff
+	je ret_from_normal
+
+ret_from_int:
+	popa
+	add esp, 8
+	iret
+
+ret_from_normal:
+	popa
+	add esp, 8
+    sti
+	ret

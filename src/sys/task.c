@@ -123,8 +123,8 @@ void task_pick_next()
 void task_switch()
 {
 	/* suspend current task */
-	current->state = TASK_WAIT;
-	current->stack = curr_task_sp;
+	tasks[curr_task_tid].state = TASK_WAIT;
+	tasks[curr_task_tid].stack = curr_task_sp;
 
 	task_pick_next();
 
@@ -132,17 +132,18 @@ void task_switch()
 	if (curr_task_tid == next_task_tid)
 	{
 		tasks[curr_task_tid].state = TASK_RUNNING;
-		return;
+	}else
+	{
+
+	    /* resume ready task */
+	    curr_task_tid = next_task_tid;
+	    tasks[curr_task_tid].state = TASK_RUNNING;
+	    curr_task_sp = tasks[curr_task_tid].stack;
+
+//	    /* we are now in interrupt context */
+//	    __asm__  __volatile__ (
+//	    	"jmp task_sw_int\n\t"
+//	    	);
 	}
-
-	/* resume ready task */
-	curr_task_tid = next_task_tid;
-	current->state = TASK_RUNNING;
-	curr_task_sp = tasks[curr_task_tid].stack;
-
-	/* we are now in interrupt context */
-	__asm__  __volatile__ (
-		"jmp task_sw_int\n\t"
-		);
 }
 
