@@ -1,52 +1,26 @@
-/* let the linker use its 'native' format (ELF/COFF/PE)
-OUTPUT_FORMAT("coff-go32") */
-/* no leading underscore for symbols handled in asm: */
-/*ENTRY(entry)*/
+OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH("i386")
 ENTRY(boot)
-LS_Phys = 0x100000; /* 1 meg = load (physical) address */
-LS_Virt = 0x100000; /* 1 meg = virtual address */
+phys = 0x00100000;
 SECTIONS
 {
-    .text LS_Virt : AT(LS_Phys)
-    {
-	LS_Code = .;
-/* symbols to mark start of code segment */
-	code = .; _code = .;
-/* kernel code */
-	*(.text)
-/* .rodata is the ELF constant data section */
-	*(.rodata*)
-	. = ALIGN(4096);
+    .text phys : AT(phys) {
+        code = .;
+        *(.text)
+        *(.rodata)
+        . = ALIGN(4096);
     }
-    .data : AT(LS_Phys + (LS_Data - LS_Code))
+    .data : AT(phys + (data - code))
     {
-	LS_Data = .;
-/* symbols to mark start of data segment */
-	data = .; _data = .;
-/* kernel data */
-	*(.data)
-	. = ALIGN(4096);
+        data = .;
+        *(.data)
+        . = ALIGN(4096);
     }
-    .bss : AT(LS_Phys + (LS_Bss - LS_Code))
+    .bss : AT(phys + (bss - code))
     {
-	LS_Bss = .;
-/* symbols to mark start of BSS segment */
-	bss = .; _bss = .;
-/* kernel BSS */
-	*(.bss)
-	*(COMMON) /* "common" variables */
-	. = ALIGN(4096);
+        bss = .;
+        *(.bss)
+        . = ALIGN(4096);
     }
-/* bug in MinGW? I get a bad executable file unless these
-sections are here... */
-    .stab :
-    {
-	*(.stab)
-    }
-    .stabstr :
-    {
-	*(.stabstr)
-    }
-/* symbols to mark end of kernel */
-    end = .; _end = .;
+    end = .;
 }

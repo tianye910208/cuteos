@@ -81,6 +81,19 @@ image_s:bin/bootsect.bin bin/kernel_s.bin
 	dd if=bin/bootsect.bin of=$(IMAGE) bs=512 seek=0 conv=notrunc
 	dd if=bin/kernel_s.bin of=$(IMAGE) bs=512 seek=1 conv=notrunc
 
+image_m:bin/kernel_m.bin
+	cp cfg/floppy.img floppy.img
+	sudo /sbin/losetup /dev/loop0 floppy.img
+	sudo mkdir mnt
+	sudo mount /dev/loop0 mnt
+	sudo cp bin/kernel_m.bin mnt/kernel.bin
+	sudo mkdir -p mnt/boot/grub/
+	sudo cp cfg/menu.lst mnt/boot/grub/menu.lst
+	sudo umount /dev/loop0
+	sudo /sbin/losetup -d /dev/loop0
+	sudo rmdir mnt
+
+
 qemu:
 	qemu-system-i386 -fda $(IMAGE) -boot a
 

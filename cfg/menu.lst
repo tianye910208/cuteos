@@ -1,0 +1,4 @@
+timeout 	5
+title 		CuteOS
+	root 	(fd0)
+	kernel 	/kernel.bin
