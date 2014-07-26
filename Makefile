@@ -68,8 +68,8 @@ bin/kernel_m.bin: obj/src/asm/bootmult.o $(OBJS)
 	@ld $(LDFLAGS) --oformat elf32-i386 -T cfg/link_m.ld -o $@ $^
 
 clean:
-	@rm -rf obj/*
-	@rm -rf bin/*
+	@rm -rf obj
+	@rm -rf bin
 	@rm -rf *.img
 	@echo [clean] finish
 
