@@ -24,7 +24,7 @@ void timer_init()
 	iowrite8(0x40, dt >> 8);
 }
 
-void timer_func(struct regs *r)
+void timer_func(REG *r)
 {
     _g_timer_ticks++;
 	task_switch();

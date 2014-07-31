@@ -3,6 +3,9 @@
 
 #define MAX_TASKS 64
 
+#include "def.h"
+
+
 typedef enum {
 	TASK_INIT,
 	TASK_READY,
@@ -24,6 +27,9 @@ struct task
 	void (*func) ( void );
 };
 
+
+extern TSS sys_task_state;
+extern int sys_task_stack[1024];
 
 extern int  curr_task_cnt;
 extern int  curr_task_tid;

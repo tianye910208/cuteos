@@ -5,6 +5,8 @@
 
 extern void task_sw_int();
 
+TSS sys_task_state;
+int sys_task_stack[1024];
 
 int curr_task_cnt = 0;
 int curr_task_tid = 0; //kernel main thread
@@ -14,6 +16,15 @@ struct task tasks[MAX_TASKS];
 
 void task_init()
 {
+	memset((unsigned char*)&sys_task_state, 0, sizeof(sys_task_state));
+	sys_task_state.esp0 = (unsigned int)sys_task_stack;
+	sys_task_state.ss0 = 2 << 3;//segment descriptor 2
+	sys_task_state.iomap = sizeof(sys_task_state);
+
+	__asm__ __volatile__ ("ltr %%ax "::"a"(3<<3));
+
+
+
 	tasks[0].tid = 0;
 	strcpy(tasks[0].tname, "init");
 

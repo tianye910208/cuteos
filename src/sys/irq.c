@@ -29,7 +29,7 @@ void* irq_routines[16] =
 };
 
 
-void irq_add_handler(int irq, void (*handler)(struct regs* r))
+void irq_add_handler(int irq, void (*handler)(REG* r))
 {
 	irq_routines[irq] = handler;
 }
@@ -74,10 +74,10 @@ void irq_init()
 }
 
 
-void irq_handler(struct regs* r)
+void irq_handler(REG* r)
 {
 	//Handler pointer
-	void (*handler)(struct regs* r);
+	void (*handler)(REG* r);
 
 	//Find handler and call it
 	handler = irq_routines[r->int_no - 32];

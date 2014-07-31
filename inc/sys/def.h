@@ -14,13 +14,51 @@
 
 
 /*  This defines what the stack looks like after an ISR was running */
-struct regs
+typedef struct _s_regs
 {
 	unsigned int gs, fs, es, ds;
 	unsigned int edi, esi, ebp, esp, ebx, edx, ecx, eax;
 	unsigned int int_no, err_code;
 	unsigned int eip, cs, eflags, useresp, ss;    
-};
+}REG;
+
+
+typedef struct _s_tss {
+	unsigned int    backlink;
+	unsigned int    esp0;       /*  stack pointer to use during interrupt */
+	unsigned int    ss0;        /*    "   segment  "  "    "        "     */
+	unsigned int    esp1;
+	unsigned int    ss1;
+	unsigned int    esp2;
+	unsigned int    ss2;
+	unsigned int    cr3;
+	unsigned int    eip;
+	unsigned int    flags;
+
+	unsigned int    eax;
+	unsigned int    ecx;
+	unsigned int    edx;
+	unsigned int    ebx;
+
+	unsigned int    esp;
+	unsigned int    ebp;
+
+	unsigned int    esi;
+	unsigned int    edi;
+
+	unsigned int    es;
+	unsigned int    cs;
+	unsigned int    ss;
+	unsigned int    ds;
+	unsigned int    fs;
+	unsigned int    gs;
+
+	unsigned int    ldt;
+
+	unsigned short  trap;
+	unsigned short  iomap; 
+}TSS;
+
 
 
 typedef char *va_list;

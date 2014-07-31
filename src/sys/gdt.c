@@ -1,3 +1,5 @@
+#include "sys/init.h"
+#include "sys/task.h"
 
 struct gdt_entry
 {
@@ -16,7 +18,7 @@ struct gdt_ptr
 } __attribute__((packed));
 
 
-#define GDT_ENTRY_COUNT 3
+#define GDT_ENTRY_COUNT 5
 
 struct gdt_entry gdt_table[GDT_ENTRY_COUNT];
 struct gdt_ptr   gdt_pointer;
@@ -54,6 +56,8 @@ void gdt_init()
 
     //Data Segment
 	gdt_set(2, 0, 0xFFFFFFFF, 0x92, 0xCF);
+
+	gdt_set(3, (unsigned int)&sys_task_state, (unsigned int)&sys_task_state + sizeof(sys_task_state) + 1, 0x89, 0x40);
 
     //Load the new GDT
 	gdt_load();

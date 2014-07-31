@@ -118,7 +118,7 @@ char *exception_messages[] =
     "Reserved"
 };
 
-void isr_handler(struct regs* r)
+void isr_handler(REG* r)
 {
 	//Check that this is a fault
 	if (r->int_no < 32) {

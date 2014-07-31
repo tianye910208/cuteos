@@ -170,7 +170,7 @@ irq_common_stub:
 	push fs
 	push gs
 
-	mov ax, 0x10
+	mov ax, ss
 	mov ds, ax
 	mov es, ax
 	mov fs, ax
